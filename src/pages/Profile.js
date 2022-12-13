@@ -46,7 +46,7 @@ class Profile extends React.Component {
         </div>
       );
     }
-  }
+  };
 
   render() {
     const { loading } = this.state;
