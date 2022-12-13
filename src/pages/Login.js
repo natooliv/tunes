@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
-import TrybeTunesLogin from '../TrybeTunesLogin.png';
 
 class Login extends React.Component {
   constructor() {
@@ -54,7 +53,8 @@ class Login extends React.Component {
             value={ name }
           />
           <button
-            type="button"
+            type="submit"
+            className="btn btn-dark submit mt-2"
             data-testid="login-submit-button"
             disabled={ isDisabled }
             onClick={ this.handleClick }
