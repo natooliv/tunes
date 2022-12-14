@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -32,24 +33,26 @@ class MusicCard extends React.Component {
       loading ? <Loading /> : (
         <div className="individual-music-container">
 
-          <p className="song-title">{ track.trackName}</p>
-          <div className="audio-favorite-container">
-            <audio data-testid="audio-component" src={ track.previewUrl } controls>
+          <p className="song-title">{track.trackName}</p>
+          <div className="audio-favorita-container">
+            <audio data-testid="audio-component" src={track.previewUrl} controls>
               <track kind="captions" />
               O seu navegador não suporta o elemento
               <code>audio</code>
             </audio>
-            <label htmlFor="favorita">
-              <input
-                className="favorita"
-                type="checkbox"
-                data-testid={ `checkbox-music-${track.trackId}` }
-                id={ track.trackId }
-                // onChange={ ((event) => this.handleChange(event, track)) }
-                onChange={ favoriteSong }
-                checked={ isFavorite }
-              />
+            <label htmlFor={ track.trackId }>
+              Favorita
             </label>
+            <input
+              className="favorite"
+              type="checkbox"
+              data-testid={ `checkbox-music-${track.trackId}` }
+              id={ track.trackId }
+              // onChange={ ((event) => this.handleChange(event, track)) }
+              onChange={ favoriteSong }
+              checked={ isFavorite }
+            />
+
           </div>
         </div>
       )

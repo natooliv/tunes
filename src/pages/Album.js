@@ -31,32 +31,6 @@ class Album extends React.Component {
   }
 
   async handleSong(track) {
-    // const { favoriteMusics } = this.state;
-    // if (favoriteMusics.some(({ trackId }) => trackId !== song.trackId)) {
-    //   await addSong(song);
-    //   console.log('add');
-    //   this.setState((prevState) => {
-    //     const favorites = prevState.favoriteMusics;
-    //     favorites.push(song);
-    //     return {
-    //       ...prevState,
-    //       favoriteMusics: favorites,
-    //     };
-    //   });
-    // }
-    // if (favoriteMusics.some(({ trackId }) => trackId === song.trackId)) {
-    //   await removeSong(song);
-    //   console.log('rem');
-    //   this.setState((prevState) => {
-    //     const favorites = prevState.favoriteMusics;
-    //     const index = favorites.indexOf(song);
-    //     favorites.splice(index, 1);
-    //     return {
-    //       ...prevState,
-    //       favoriteMusics: favorites,
-    //     };
-    //   });
-    // }
     const { favoriteMusics } = this.state;
     this.setState({ loading: true });
     if (favoriteMusics.some(({ trackId }) => trackId === track.trackId)) {
