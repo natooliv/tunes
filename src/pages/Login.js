@@ -1,68 +1,92 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
+import { createUser } from '../services/userAPI';
 
 class Login extends React.Component {
   constructor() {
     super();
+
     this.state = {
-      isDisabled: true,
       name: '',
-      loading: false,
+      buttonIsDisabled: true,
+      loadingPage: false,
     };
   }
 
-  onInputChange = ({ target }) => {
+  verifyChararcters = ({ target }) => {
+    const { value } = target;
+    const minNumber = 3;
+    const minimumCharactersReached = value.length < minNumber;
+
     this.setState({
-      name: target.value }, () => {
-      const MIN_CHARACTERS = 3;
-      const isValid = target.value.length < MIN_CHARACTERS;
-      this.setState({ isDisabled: isValid });
+      name: value,
+      buttonIsDisabled: minimumCharactersReached,
     });
   };
 
-  handleClick = () => {
-    this.setState(
-      { loading: true },
-      async () => {
-        const { name } = this.state;
-        await createUser({ name });
-        this.setState({
-          loading: false,
-        });
-        const { history } = this.props;
-        history.push('/search');
-      },
-    );
+  submitButton = () => {
+    this.setState({ loadingPage: true }, async () => {
+      const { name } = this.state;
+      const { history } = this.props;
+      await createUser({
+        name,
+      });
+      history.push('/search');
+    });
   };
 
   render() {
-    const { isDisabled, name, loading } = this.state;
-    if (loading) return <Loading />;
+    const {
+      buttonIsDisabled,
+      loadingPage,
+    } = this.state;
+
     return (
+      <div
+        style={ { height: '100vh', width: '100%' } }
+        className="row justify-content-center align-items-center login-wallpaper"
+      >
+        <section
+          className="container
+          align-content-center col-10 col-md-6 col-lg-4 rounded-3 p-4 shadow bg-light"
+          data-testid="page-login"
+        >
+          { loadingPage ? <Loading />
+            : (
+              <>
+                <span className="fs-3 title">Login</span>
+                <form className="my-4">
+                  <div className="input-group mb-3">
+                    <span
+                      className="input-group-text username"
+                    >
+                      <i className="far fa-user-circle fa-lg" />
+                    </span>
+                    <input
+                      name="userName"
+                      className="form-control input"
+                      id="login-name-input"
+                      placeholder="Nome"
+                      data-testid="login-name-input"
+                      onChange={ this.verifyChararcters }
+                    />
 
-      <div data-testid="page-login" className="mainLogin">
-        <img src={ TrybeTunesLogin } alt="TrybeTunesLogo" />
-        <form>
-          <input
-            type="text"
-            placeholder="Nome:"
-            data-testid="login-name-input"
-            onChange={ this.onInputChange }
-            value={ name }
-          />
-          <button
-            type="submit"
-            className="btn btn-dark submit mt-2"
-            data-testid="login-submit-button"
-            disabled={ isDisabled }
-            onClick={ this.handleClick }
-          >
-            Entrar
+                  </div>
+                </form>
+                <button
+                  type="submit"
+                  className="btn btn-dark submit mt-2"
+                  data-testid="login-submit-button"
+                  disabled={ buttonIsDisabled }
+                  onClick={ this.submitButton }
+                >
+                  Entrar
+                </button>
 
-          </button>
-        </form>
+              </>
+            )}
+        </section>
       </div>
     );
   }
