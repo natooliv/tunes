@@ -35,7 +35,7 @@ class MusicCard extends Component {
         });
       });
     }
-  };
+  }
 
   render() {
     const { loading, isChecked } = this.state;
