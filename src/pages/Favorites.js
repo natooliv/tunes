@@ -13,8 +13,7 @@ class Favorites extends Component {
     };
   }
 
-  // eslint-disable-next-line react/no-arrow-function-lifecycle
-  componentDidMount = () => this.checkFavorite();
+  componentDidMount() { return this.checkFavorite(); }
 
   checkFavorite = async () => {
     this.loadingState();
