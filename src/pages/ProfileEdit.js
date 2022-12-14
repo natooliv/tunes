@@ -37,7 +37,7 @@ class ProfileEdit extends Component {
       ...prevState,
       [name]: value }
     ), () => this.validateSubmit());
-  };
+  }
 
   validateSubmit = () => {
     const {
@@ -57,7 +57,7 @@ class ProfileEdit extends Component {
     } this.setState({
       isSaveButtonDisabled: false,
     });
-  };
+  }
 
   onSaveClick = async (e) => {
     const { name, email, image, description } = this.state;
@@ -65,7 +65,7 @@ class ProfileEdit extends Component {
     await updateUser({ name, email, image, description });
     const { history } = this.props;
     history.push('/profile');
-  };
+  }
 
   loadingState = () => this.setState(({ loading }) => ({ loading: !loading }));
 

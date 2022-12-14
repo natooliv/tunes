@@ -1,60 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { getUser } from '../services/userAPI';
 
-class Profile extends React.Component {
+class Profile extends Component {
   constructor() {
     super();
     this.state = {
+      userName: '',
+      userEmail: '',
+      userBio: '',
+      userImg: '',
       loading: false,
-      userInformation: undefined,
     };
   }
 
   componentDidMount() {
-    this.setState(
-      { loading: true },
-      async () => {
-        const resposta = await getUser();
-        this.setState({
-          loading: false,
-          userInformation: resposta,
-        });
-      },
-    );
+    this.setState({ loading: true }, async () => {
+      const user = await getUser();
+      this.setState({
+        userName: user.name,
+        userEmail: user.email,
+        userBio: user.description,
+        userImg: user.image,
+        loading: false,
+      });
+    });
   }
 
-  information = () => {
-    const { userInformation } = this.state;
-    if (userInformation !== undefined) {
-      const { name, email, image, description } = userInformation;
-      return (
-        <div className="profile">
-          { image === ''
-            ? <FaUserCircle />
-            : <img data-testid="profile-image" src={ image } alt={ name } />}
-          <span>Nome:</span>
-          <p>{name}</p>
-          <span>E-mail:</span>
-          <p>{email}</p>
-          <span>Descrição:</span>
-          <p>{description}</p>
-          <Link to="/profile/edit">Editar perfil</Link>
-        </div>
-      );
-    }
-  };
-
   render() {
-    const { loading } = this.state;
+    const { userName, userEmail, userBio, userImg, loading } = this.state;
     return (
       <div data-testid="page-profile">
         <Header />
-        {loading ? <Loading />
-          : this.information()}
+        <div className="profileContainer">
+          { loading ? <Loading /> : (
+            <>
+              <div className="profile-row">
+                <img
+                  src={ userImg }
+                  className="profile-img"
+                  alt=""
+                  data-testid="profile-image"
+                />
+                <Link to="/profile/edit" className="edit-btn">Editar perfil</Link>
+              </div>
+              <h4>Nome</h4>
+              <p>{userName}</p>
+              <h4>E-mail</h4>
+              <p>{userEmail || 'Nenhum e-mail cadastrado'}</p>
+              <h4>Descrição</h4>
+              <p>{userBio || 'Nenhuma descrição cadastrada'}</p>
+            </>
+          )}
+        </div>
+
       </div>
     );
   }
