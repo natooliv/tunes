@@ -56,7 +56,7 @@ class Search extends React.Component {
               <Link
                 key={ index }
                 data-testid={ `link-to-album-${album.collectionId}` }
-                to={ `/12-Project-TrybeTunes/album/${album.collectionId}` }
+                to={ `/album/${album.collectionId}` }
               >
                 <li>
                   <img
