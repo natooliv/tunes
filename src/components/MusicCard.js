@@ -1,87 +1,72 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+
 import Loading from './Loading';
 
-class MusicCard extends Component {
+class MusicCard extends React.Component {
   constructor() {
     super();
+
     this.state = {
       loading: false,
-      isChecked: false,
     };
+
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  async componentDidMount() {
-    const { trackId } = this.props;
-    const listOfFavMusics = await getFavoriteSongs();
-    const isChecked = listOfFavMusics.some((music) => music.trackId === trackId);
-    this.setState({ loading: true, isChecked }, () => this.setState({ loading: false }));
-  }
+  // async handleChange({ target }, track) {
+  //   const { addSong } = this.props;
+  //   this.setState({ loading: true });
 
-  isChecked = ({ target }) => {
-    const { albumMusics, index } = this.props;
-    if (target.checked) {
-      this.setState({ isChecked: true, loading: true }, async () => {
-        await addSong(albumMusics[index]);
-        this.setState({ loading: false });
-      });
-    } else {
-      this.setState({ isChecked: false, loading: true }, async () => {
-        await removeSong(albumMusics[index]);
-        this.setState({ loading: false }, () => {
-          const { checkFavorite } = this.props;
-          checkFavorite();
-        });
-      });
-    }
-  };
+  //   if (target.checked) {
+  //     await addSong(track);
+  //   }
+  //   this.setState({ loading: false });
+  // }
 
   render() {
-    const { loading, isChecked } = this.state;
-    const { trackName, previewUrl, trackId } = this.props;
+    const { loading } = this.state;
+    const { track, isFavorite, favoriteSong } = this.props;
+
     return (
-      <div>
-        <h4>{loading ? <Loading /> : trackName}</h4>
-        <audio
-          data-testid="audio-component"
-          src={ previewUrl }
-          controls
-        >
-          <track kind="captions" />
-          O seu navegador não suporta o elemento
-          {previewUrl}
-          <code>
-            audio
-          </code>
-          .
-        </audio>
-        <label htmlFor={ trackId } data-testid={ `checkbox-music-${trackId}` }>
-          Favorita
-          <input
-            type="checkbox"
-            name="favorites"
-            id={ trackId }
-            onChange={ this.isChecked }
-            checked={ isChecked }
-          />
-        </label>
-      </div>
+      loading ? <Loading /> : (
+        <div className="individual-music-container">
+
+          <p className="song-title">{ track.trackName}</p>
+          <div className="audio-favorite-container">
+            <audio data-testid="audio-component" src={ track.previewUrl } controls>
+              <track kind="captions" />
+              O seu navegador não suporta o elemento
+              <code>audio</code>
+            </audio>
+            <label htmlFor="favorita">
+              <input
+                className="favorita"
+                type="checkbox"
+                data-testid={ `checkbox-music-${track.trackId}` }
+                id={ track.trackId }
+                // onChange={ ((event) => this.handleChange(event, track)) }
+                onChange={ favoriteSong }
+                checked={ isFavorite }
+              />
+            </label>
+          </div>
+        </div>
+      )
+
     );
   }
 }
 
 MusicCard.propTypes = {
-  trackName: PropTypes.string.isRequired,
-  previewUrl: PropTypes.string.isRequired,
-  trackId: PropTypes.number.isRequired,
-  albumMusics: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  index: PropTypes.number.isRequired,
-  checkFavorite: PropTypes.func,
+  track: PropTypes.shape({
+    trackName: PropTypes.string,
+    previewUrl: PropTypes.string,
+    trackId: PropTypes.number,
+  }).isRequired,
+  isFavorite: PropTypes.bool,
+  favoriteSong: PropTypes.func.isRequired,
 };
-
-MusicCard.defaultProps = {
-  checkFavorite: () => {},
-};
+MusicCard.defaultProps = { isFavorite: false };
 
 export default MusicCard;
