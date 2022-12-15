@@ -6,6 +6,7 @@ import { getFavoriteSongs, addSong, removeSong } from '../services/favoriteSongs
 
 import getMusics from '../services/musicsAPI';
 import Loading from '../components/Loading';
+import '../styles/album.css';
 
 class Album extends React.Component {
   constructor() {

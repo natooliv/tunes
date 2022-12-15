@@ -35,7 +35,7 @@ class MusicCard extends React.Component {
 
           <p className="song-title">{track.trackName}</p>
           <div className="audio-favorita-container">
-            <audio data-testid="audio-component" src={track.previewUrl} controls>
+            <audio data-testid="audio-component" src={ track.previewUrl } controls>
               <track kind="captions" />
               O seu navegador não suporta o elemento
               <code>audio</code>

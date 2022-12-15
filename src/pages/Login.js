@@ -1,101 +1,78 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
+import TrybeTunesLogin from '../TrybeTunesLogin.png';
+import '../styles/loginPage.css';
 
-class Login extends React.Component {
+class Login extends Component {
   constructor() {
     super();
-
     this.state = {
       name: '',
-      buttonIsDisabled: true,
-      loadingPage: false,
+      isButtonDisabled: true,
+      isLoggedIn: false,
+      loading: false,
     };
   }
 
-  verifyChararcters = ({ target }) => {
-    const { value } = target;
-    const minNumber = 3;
-    const minimumCharactersReached = value.length < minNumber;
+  handleChange({ target }) {
+    const minLength = 3;
+    this.setState(() => ({
+      name: target.value,
+      isButtonDisabled: target.value.length < minLength,
+    }));
+  }
 
+  handleSubmit(event) {
+    const { name } = this.state;
+    event.preventDefault();
     this.setState({
-      name: value,
-      buttonIsDisabled: minimumCharactersReached,
-    });
-  };
-
-  submitButton = () => {
-    this.setState({ loadingPage: true }, async () => {
-      const { name } = this.state;
-      const { history } = this.props;
-      await createUser({
-        name,
+      loading: true,
+    }, async () => {
+      await createUser({ name });
+      this.setState({
+        loading: false,
+        isLoggedIn: true,
       });
-      history.push('/search');
     });
-  };
+  }
 
   render() {
-    const {
-      buttonIsDisabled,
-      loadingPage,
-    } = this.state;
-
+    const { name, isButtonDisabled, isLoggedIn, loading } = this.state;
     return (
-      <div
-        style={ { height: '100vh', width: '100%' } }
-        className="row justify-content-center align-items-center login-wallpaper"
-      >
-        <section
-          className="container
-          align-content-center col-10 col-md-6 col-lg-4 rounded-3 p-4 shadow bg-light"
-          data-testid="page-login"
-        >
-          { loadingPage ? <Loading />
+      <div className="loginContainer">
+        <img src="./trybetunes/images/logo-trybetunes.png" alt="" className="logo" />
+        <h1 className="logo">
+          <img src={ TrybeTunesLogin } alt="TrybeTunesLogin" />
+        </h1>
+        <div data-testid="page-login" className="loginFormContainer">
+          {loading === true
+            ? <Loading />
             : (
-              <>
-                <span className="fs-3 title">Login</span>
-                <form className="my-4">
-                  <div className="input-group mb-3">
-                    <span
-                      className="input-group-text username"
-                    >
-                      <i className="far fa-user-circle fa-lg" />
-                    </span>
-                    <input
-                      name="userName"
-                      className="form-control input"
-                      id="login-name-input"
-                      placeholder="Nome"
-                      data-testid="login-name-input"
-                      onChange={ this.verifyChararcters }
-                    />
-
-                  </div>
-                </form>
+              <form>
+                <input
+                  type="text"
+                  onChange={ (event) => this.handleChange(event) }
+                  data-testid="login-name-input"
+                  value={ name }
+                  placeholder="Nome"
+                />
                 <button
                   type="submit"
-                  className="btn btn-dark submit mt-2"
+                  onClick={ (event) => this.handleSubmit(event) }
                   data-testid="login-submit-button"
-                  disabled={ buttonIsDisabled }
-                  onClick={ this.submitButton }
+                  disabled={ isButtonDisabled }
                 >
                   Entrar
                 </button>
-
-              </>
+              </form>
             )}
-        </section>
+          {isLoggedIn && <Redirect to="/search" />}
+        </div>
       </div>
     );
   }
 }
-
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default Login;

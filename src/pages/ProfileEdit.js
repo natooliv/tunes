@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
+import '../styles/edit-profile.css';
 
 class ProfileEdit extends Component {
   constructor() {
@@ -35,7 +36,8 @@ class ProfileEdit extends Component {
     const { name, value } = target;
     this.setState((prevState) => ({
       ...prevState,
-      [name]: value }
+      [name]: value,
+    }
     ), () => this.validateSubmit());
   };
 
@@ -76,38 +78,41 @@ class ProfileEdit extends Component {
         <Header />
         {loading ? <Loading /> : (
           <form onSubmit={ this.onClick }>
-            <input
-              type="text"
-              name="name"
-              data-testid="edit-input-name"
-              value={ name }
-              onChange={ this.onChange }
-            />
-            <input
-              type="email"
-              name="email"
-              data-testid="edit-input-email"
-              placeholder={ `${name.toLowerCase()}@email.com` }
-              value={ email }
-              onChange={ this.onChange }
-            />
-            <textarea
-              name="description"
-              cols="30"
-              rows="1"
-              data-testid="edit-input-description"
-              placeholder={ `Eu sou o ${name}. Amo escutar músicas nesse site!` }
-              value={ description }
-              onChange={ this.onChange }
-            />
-            <input
-              type="url"
-              name="image"
-              data-testid="edit-input-image"
-              value={ image }
-              onChange={ this.onChange }
-            />
+            <div className="edit-profile-form">
+              <input
+                type="text"
+                name="name"
+                data-testid="edit-input-name"
+                value={ name }
+                onChange={ this.onChange }
+              />
+              <input
+                type="email"
+                name="email"
+                data-testid="edit-input-email"
+                placeholder={ `${name.toLowerCase()}@email.com` }
+                value={ email }
+                onChange={ this.onChange }
+              />
+              <textarea
+                name="description"
+                cols="30"
+                rows="1"
+                data-testid="edit-input-description"
+                placeholder={ `Eu sou o ${name}. Amo escutar músicas nesse site!` }
+                value={ description }
+                onChange={ this.onChange }
+              />
+              <input
+                type="url"
+                name="image"
+                data-testid="edit-input-image"
+                value={ image }
+                onChange={ this.onChange }
+              />
+            </div>
             <button
+              id="save-edtProfile-btn"
               type="submit"
               data-testid="edit-button-save"
               onClick={ this.onSaveClick }

@@ -1,0 +1,72 @@
+
+@font-family: "Open Sans","Source Sans Pro",Helvetica,sans-serif;
+
+
+.edit-profile-form{
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+  margin: auto;
+}
+
+.edit-profile-form label{
+  color: rgb(114, 236, 0);
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  font-weight: 900;
+  margin: 24px 0 0 0;
+  text-transform: uppercase;
+}
+
+.edit-profile-form label:nth-child(1) {
+  margin-top: 50%;
+}
+
+.edit-profile-form input, .edit-profile-form textarea {
+  margin-top: 8px;
+  border: none;
+  border-bottom: 1px solid rgb(30, 119, 12);
+  font-size: 15px;
+  height: 30px;
+  width: 400px;
+}
+
+#save-edtProfile-btn {
+  align-items: center;
+  border: 3px solid transparent;
+  box-sizing: border-box;
+  color: rgb(1, 12, 2);
+  display:flex;
+  font-weight: 900;
+  font-family: "Open Sans","Source Sans Pro",Helvetica,sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  justify-content: center;
+  height: 32px;
+  margin: auto;
+  margin-top: 3%;
+  padding: 1rem;
+  text-transform: uppercase; 
+  width: fit-content;
+}
+
+#save-edtProfile-btn {
+  background-image:
+    linear-gradient(rgb(17, 156, 114), rgb(129, 219, 26)),
+    linear-gradient(180deg, rgb(7, 226, 135), rgb(3, 19, 8) 50%, rgb(25, 255, 36));
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 100% 200%;
+  background-position: 0 0, 0 100%;
+  background-origin: padding-box, border-box;
+  animation: highlight 1s infinite alternate;
+}
+
+@keyframes highlight {
+  100% {
+    background-position: 0 0, 0 0;
+  }
+}
