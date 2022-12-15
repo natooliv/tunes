@@ -42,17 +42,16 @@ class MusicCard extends React.Component {
             </audio>
             <label htmlFor={ track.trackId }>
               Favorita
+              <input
+                className="favorite"
+                type="checkbox"
+                data-testid={ `checkbox-music-${track.trackId}` }
+                id={ track.trackId }
+                // onChange={ ((event) => this.handleChange(event, track)) }
+                onChange={ favoriteSong }
+                checked={ isFavorite }
+              />
             </label>
-            <input
-              className="favorite"
-              type="checkbox"
-              data-testid={ `checkbox-music-${track.trackId}` }
-              id={ track.trackId }
-              // onChange={ ((event) => this.handleChange(event, track)) }
-              onChange={ favoriteSong }
-              checked={ isFavorite }
-            />
-
           </div>
         </div>
       )
