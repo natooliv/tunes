@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
 import TrybeTunesLogin from '../TrybeTunesLogin.png';
-import '../styles/loginPage.css';
 
 class Login extends Component {
   constructor() {

@@ -4,8 +4,6 @@ import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { getUser } from '../services/userAPI';
 
-import '../styles/profile.css';
-
 class Profile extends Component {
   constructor() {
     super();
