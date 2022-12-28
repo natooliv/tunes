@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import TrybeTunesLogin from '../TrybeTunesLogin.png';
+
+import '../styles/header.scss';
 
 class Header extends React.Component {
   constructor() {
@@ -28,12 +31,14 @@ class Header extends React.Component {
   render() {
     const { name, loadingPage } = this.state;
     return (
-      <header data-testid="header-component">
-        { loadingPage ? <Loading />
-          : (
-            <p data-testid="header-user-name">{ name }</p>
-          ) }
-
+      <header data-testid="header-component" className="mainHeader">
+        <div className="header-info">
+          <img src={ TrybeTunesLogin } alt="TrybeTunesLogin" />
+          { loadingPage ? <Loading />
+            : (
+              <h1 data-testid="header-user-name">{ name }</h1>
+            ) }
+        </div>
         <nav>
           <Link
             to="/search"

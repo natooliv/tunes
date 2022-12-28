@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
-import TrybeTunesLogin from '../TrybeTunesLogin.png';
+import TrybeTunesHeader from '../TrybeTunesHeader.png';
+import '../styles/login.scss';
 
 class Login extends Component {
   constructor() {
@@ -41,9 +42,9 @@ class Login extends Component {
     const { name, isButtonDisabled, isLoggedIn, loading } = this.state;
     return (
       <div className="loginContainer">
-        <img src="./trybetunes/images/logo-trybetunes.png" alt="" className="logo" />
+        <img src="./trybetunes/images/logo-trybetunes.png" alt="" className="mainLogo" />
         <h1 className="logo">
-          <img src={ TrybeTunesLogin } alt="TrybeTunesLogin" />
+          <img src={ TrybeTunesHeader } alt="TrybeTunesheader" />
         </h1>
         <div data-testid="page-login" className="loginFormContainer">
           {loading === true

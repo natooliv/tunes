@@ -1,0 +1,131 @@
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+.search-form{
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  
+}
+
+#searchInput{
+  border: 3px solid rgb(20, 37, 3);
+  height: 32px;
+  margin-top: 3%;
+  width: 32%;
+}
+
+#searchInput::placeholder {
+  color: rgba(29, 56, 6, 0.4);
+}
+
+#searchInput:focus{
+  background-color: transparent;
+  border: 2px solid rgb(20, 37, 3);
+  outline: none !important;
+}
+
+/* https://codepen.io/bibby0912/pen/mErWyA */
+#btn-search-form {
+  align-items: center;
+  border: 3px solid transparent;
+  box-sizing: border-box;
+  color: rgb(20, 37, 3);;
+  display:flex;
+  font-weight: 900;
+  font-family: "Open Sans","Source Sans Pro",Helvetica,sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  justify-content: center;
+  height: 30px;
+  margin-top: 4%;
+  margin-left:  50px;
+  padding: 1rem;
+  text-transform: uppercase; 
+  width: fit-content;
+}
+
+#btn-search-form {
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(180deg, rgb(96, 249, 65), rgb(11, 110, 44) 50%, rgb(73, 128, 41));
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 100% 200%;
+  background-position: 0 0, 0 100%;
+  background-origin: padding-box, border-box;
+  animation: highlight 1s infinite alternate;
+}
+
+@keyframes highlight {
+  100% {
+    background-position: 0 0, 0 0;
+  }
+}
+
+.result-text{
+  color:  rgb(20, 37, 3);
+  font-family: "Open Sans","Source Sans Pro",Helvetica,sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  margin: 50px 0 20px 10px ;
+}
+
+.album-miniature-div{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+  
+}
+
+.album-miniature-link{
+  align-content: center;
+  border: 3px solid rgb(248, 249, 250);
+  border-radius: 8px;
+  box-shadow: 5px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  margin: 16px;
+  width: 280px;
+}
+
+.album-image{
+  display: flex;
+  justify-content: center;
+  height: 150px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.album-artist-info {
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  margin: 24px 16px;
+  width: 100%;
+}
+
+.album-artist-info p:nth-child(1){
+  color: rgb(20, 37, 3);
+  font-family: "Open Sans","Source Sans Pro",Helvetica,sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  width: 95%;
+}
+
+.album-artist-info p:nth-child(2){
+  color: rgb(100, 100, 100);
+  font-family: "Open Sans","Source Sans Pro",Helvetica,sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+  text-decoration: none;
+}

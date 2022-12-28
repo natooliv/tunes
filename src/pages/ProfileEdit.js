@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { getUser, updateUser } from '../services/userAPI';
 
+import '../styles/profileEdit.scss';
+
 class ProfileEdit extends Component {
   constructor() {
     super();
